@@ -3,34 +3,35 @@ const handleCategory = async () => {
     "https://openapi.programming-hero.com/api/videos/categories"
   );
   const data = await response.json();
-
   const buttonContainer = document.getElementById("btn-container");
   data.data.forEach((category) => {
-    console.log(category);
+      // console.log(category);
     const div = document.createElement("div");
     div.innerHTML = `
-            <button onclick="handleLoadData('${category.category_id}')" class="px-5 py-2 bg-gray-400 hover:bg-gray-300 text-sm font-medium rounded">
+            <button id="category-btn" onclick="handleLoadData('${category.category_id}')" class="px-5 py-2 bg-gray-400 hover:bg-gray-300 text-sm font-medium rounded">
             ${category.category}
             </button> 
         `;
+
     buttonContainer.appendChild(div);
   });
 };
-// window.onload();
+
+
+
 const handleLoadData = async (categoryId) => {
-  console.log(categoryId);
   const response = await fetch(
     `https://openapi.programming-hero.com/api/videos/category/${categoryId}`
   );
   const data = await response.json();
-
+  
   const errorContainer = document.getElementById("error-container");
   errorContainer.innerHTML = "";
   const showDataContainer = document.getElementById("show-data-container");
   showDataContainer.innerHTML = "";
 
   if (data.data.length > 0) {
-    data.data.forEach((videos) => {
+       data.data.forEach((videos) => {
 
       // convert seconds to years, month, day, hours and minutes.
       const totalSeconds = videos.others.posted_date;
@@ -47,7 +48,7 @@ const handleLoadData = async (categoryId) => {
       const publishDate = ((years ? `${years}y ` : "") +
       (months ? `${months}m ` : "") +
       (days ? `${days}d ` : "") +
-      (hours ? `${hours}hrs ` : "") +
+      (hours ? `${hours}hr ` : "") +
       (minutes ? `${minutes}min ago` : ""));
 
       const div = document.createElement("div");
@@ -65,7 +66,7 @@ const handleLoadData = async (categoryId) => {
           <div class="flex gap-3 px-3  py-5">
               <div class="avatar">
                   <div class="rounded-full h-10" >
-                      <img src="${videos?.authors[0].profile_picture}" alt="" />
+                      <img src="${videos?.authors[0].profile_picture}" alt="loading" />
                   </div>
               </div>
               <div>
@@ -113,5 +114,7 @@ const handleLoadData = async (categoryId) => {
   }
 };
 
+
 handleCategory();
 handleLoadData("1000");
+
