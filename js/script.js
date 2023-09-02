@@ -32,7 +32,7 @@ const handleLoadData = async (categoryId) => {
   if (data.data.length > 0) {
     data.data.forEach((videos) => {
 
-      // time
+      // convert seconds to years, month, day, hours and minutes.
       const totalSeconds = videos.others.posted_date;
       const years = Math.floor(totalSeconds / (365 * 24 * 3600));
       const AfterYears = totalSeconds % (365 * 24 * 3600);
@@ -61,7 +61,6 @@ const handleLoadData = async (categoryId) => {
             </span>`
                 : ""
             }
-            
             </figure>
           <div class="flex gap-3 px-3  py-5">
               <div class="avatar">
